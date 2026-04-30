@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Shoplox - Productos</title>
+    <link rel="stylesheet" th:href="@{/css/vistas.css}" href="vistas.css">
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+    <div class="nav-links">
+        <a th:href="@{/}" href="#">SHOPLOX</a>
+        <a th:href="@{/view/customers}" href="#">Clientes</a>
+        <a th:href="@{/view/products}" href="#" class="active">Productos</a>
+    </div>
+    <div class="nav-login-mini">
+        <form th:action="@{/logout}" action="#" method="post" style="margin:0;">
+            <button type="submit" class="btn-small btn-logout">Log Out</button>
+        </form>
+    </div>
+</nav>
+
+<!-- ══ CONTENIDO ══ -->
+<div class="vista-container">
+
+    <h2 class="vista-title">Productos</h2>
+
+    <!-- Formulario agregar producto -->
+    <div class="panel">
+        <h3>Agregar Nuevo Producto</h3>
+        <form th:action="@{/view/products/add}" th:object="${product}" action="#" method="post">
+            <div class="form-row">
+                <div class="form-group" style="min-width:120px; max-width:150px;">
+                    <label>ID Producto</label>
+                    <input type="number" th:field="*{productId}" placeholder="ID" required />
+                </div>
+                <div class="form-group" style="flex:2;">
+                    <label>Nombre</label>
+                    <input type="text" th:field="*{productName}" placeholder="Nombre del producto" required />
+                </div>
+                <div class="form-group" style="min-width:130px; max-width:160px;">
+                    <label>Precio (Q)</label>
+                    <input type="number" step="0.01" th:field="*{price}" placeholder="0.00" required />
+                </div>
+                <div class="form-group" style="min-width:110px; max-width:130px;">
+                    <label>Stock</label>
+                    <input type="number" th:field="*{stock}" placeholder="Cantidad" required />
+                </div>
+                <div class="form-group" style="min-width:130px; max-width:150px;">
+                    <label>Estado (1/0)</label>
+                    <input type="number" th:field="*{status}" placeholder="1 = Activo" required />
+                </div>
+                <button type="submit" class="btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabla de productos -->
+    <div class="panel">
+        <h3>Lista de Productos</h3>
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                    <th>Acciones</th> </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${products}">
+                    <td th:text="${p.productId}"></td>
+                    <td th:text="${p.productName}"></td>
+                    <td th:text="'Q' + ${p.price}"></td>
+                    <td th:text="${p.stock}"></td>
+                    <td>
+            <span th:classappend="${p.status == 1 ? 'badge-activo' : 'badge-inactivo'}"
+                  class="badge" th:text="${p.status == 1 ? 'Activo' : 'Inactivo'}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{/view/products/edit/{id}(id=${p.productId})}" class="btn-primary" style="background-color: #f6b211; padding: 5px 10px; font-size: 12px; text-decoration: none;">Editar</a>
+                        <a th:href="@{/view/products/delete/{id}(id=${p.productId})}" class="btn-danger" style="padding: 5px 10px; font-size: 12px; text-decoration: none;" onclick="return confirm('¿Eliminar este producto?')">Eliminar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script th:src="@{/js/main.js}" src="main.js"></script>
+</body>
+</html>
