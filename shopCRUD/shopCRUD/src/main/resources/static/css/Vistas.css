@@ -1,0 +1,419 @@
+/* ============================================================
+   VISTAS.CSS — Shoplox Admin Dashboard
+   Complementa style.css para las vistas internas
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+
+/* ── RESET BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    min-height: 100vh;
+}
+
+/* ══════════════════════════════════════════
+   NAVBAR  (mismo estilo que login pero oscuro)
+══════════════════════════════════════════ */
+.navbar {
+    background-color: #1d7da1;
+    height: 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 32px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 0;
+}
+
+/* Logo SHOPLOX en la navbar */
+.nav-links a:first-child {
+    font-family: 'Arial Black', Impact, sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: #e02020;
+    letter-spacing: -1px;
+    padding: 0 20px 0 0;
+    margin-right: 10px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    border-bottom: none !important;
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 0 18px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.15s, background-color 0.15s;
+}
+
+.nav-links a:hover {
+    border-bottom: 3px solid rgba(255,255,255,0.45);
+    background-color: rgba(255,255,255,0.05);
+}
+
+.nav-links a.active {
+    border-bottom: 3px solid white;
+    font-weight: 600;
+}
+
+.nav-login-mini {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-login-mini span {
+    color: rgba(255,255,255,0.9);
+    font-size: 14px;
+}
+
+/* Botón pequeño (logout, etc.) */
+.btn-small {
+    background-color: #02b757;
+    color: white;
+    border: none;
+    padding: 0 14px;
+    height: 30px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+.btn-small:hover { background-color: #029e4b; }
+
+/* Logout rojo */
+.btn-logout {
+    background-color: #d12027 !important;
+}
+.btn-logout:hover { background-color: #b01a20 !important; }
+
+/* ══════════════════════════════════════════
+   LAYOUT PRINCIPAL DE LAS VISTAS
+══════════════════════════════════════════ */
+.vista-container {
+    max-width: 960px;
+    margin: 36px auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Título de la sección */
+.vista-title {
+    font-family: 'Arial Black', Impact, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #1d7da1;
+    letter-spacing: -0.5px;
+    border-left: 5px solid #e02020;
+    padding-left: 12px;
+    margin-bottom: 4px;
+}
+
+/* ══════════════════════════════════════════
+   PANEL / CARD  (blanco, sombra suave)
+══════════════════════════════════════════ */
+.panel {
+    background: white;
+    border: 1px solid #dde3ea;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    padding: 24px 28px;
+}
+
+.panel h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1d7da1;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eef2f5;
+}
+
+/* ══════════════════════════════════════════
+   FORMULARIO
+══════════════════════════════════════════ */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 140px;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+/* Inputs globales para las vistas */
+.panel input[type="text"],
+.panel input[type="number"],
+.panel input[type="email"],
+.panel input[type="password"],
+.panel select {
+    width: 100%;
+    padding: 9px 11px;
+    border: 1px solid #c8cfd8;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #333;
+    background: white;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.panel input:focus,
+.panel select:focus {
+    border-color: #1d7da1;
+    box-shadow: 0 0 0 2px rgba(29,125,161,0.15);
+}
+
+.panel input::placeholder { color: #bbb; }
+
+/* Botón principal de acción */
+.btn-primary {
+    background-color: #02b757;
+    color: white;
+    border: none;
+    padding: 9px 24px;
+    height: 38px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.15s;
+    align-self: flex-end;
+}
+.btn-primary:hover { background-color: #029e4b; }
+
+/* Botón secundario / peligro */
+.btn-danger {
+    background-color: #d12027;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+.btn-danger:hover { background-color: #b01a20; }
+
+/* ══════════════════════════════════════════
+   TABLA
+══════════════════════════════════════════ */
+.tabla-wrapper {
+    overflow-x: auto;
+    border-radius: 3px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+thead {
+    background-color: #1d7da1;
+    color: white;
+}
+
+thead th {
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eef2f5;
+    transition: background-color 0.1s;
+}
+
+tbody tr:hover {
+    background-color: #f5f9fc;
+}
+
+tbody tr:last-child { border-bottom: none; }
+
+tbody td {
+    padding: 10px 14px;
+    color: #444;
+    vertical-align: middle;
+}
+
+/* Badge de estado */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.badge-activo {
+    background-color: #d4f0e2;
+    color: #1a7a43;
+}
+
+.badge-inactivo {
+    background-color: #fce4e4;
+    color: #a81a20;
+}
+
+/* ══════════════════════════════════════════
+   INDEX / DASHBOARD HOME
+══════════════════════════════════════════ */
+.dashboard-hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+}
+
+.dashboard-logo {
+    font-family: 'Arial Black', Impact, sans-serif;
+    color: #1d7da1;
+    font-size: 4rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-logo .logo-letter {
+    display: inline-block;
+    transform: skewX(-8deg);
+}
+
+.dashboard-logo .logo-o {
+    display: inline-block;
+    width: 0.58em;
+    height: 0.58em;
+    border: 0.18em solid #1d7da1;
+    border-radius: 4px;
+    margin: 0 0.02em;
+    transform: skewX(-8deg);
+}
+
+.dashboard-subtitle {
+    font-size: 1.1rem;
+    color: #888;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+/* Cards de acceso rápido */
+.dashboard-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.dash-card {
+    background: white;
+    border: 1px solid #dde3ea;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 32px 40px;
+    width: 220px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+}
+
+.dash-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.dash-card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.dash-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1d7da1;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dash-card-desc {
+    font-size: 12.5px;
+    color: #999;
+    margin-top: 6px;
+}
+
+/* Bienvenida */
+.welcome-banner {
+    background: linear-gradient(135deg, #1d7da1 0%, #009fe3 100%);
+    color: white;
+    border-radius: 4px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.welcome-banner h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.welcome-banner p {
+    font-size: 13.5px;
+    opacity: 0.85;
+}

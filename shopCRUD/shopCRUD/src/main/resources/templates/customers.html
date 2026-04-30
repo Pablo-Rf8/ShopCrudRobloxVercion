@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Shoplox - Clientes</title>
+    <link rel="stylesheet" th:href="@{/css/vistas.css}" href="Vistas.css">
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+    <div class="nav-links">
+        <a th:href="@{/}" href="#">SHOPLOX</a>
+        <a th:href="@{/view/customers}" href="#" class="active">Clientes</a>
+        <a th:href="@{/view/products}" href="#">Productos</a>
+    </div>
+    <div class="nav-login-mini">
+        <form th:action="@{/logout}" action="#" method="post" style="margin:0;">
+            <button type="submit" class="btn-small btn-logout">Log Out</button>
+        </form>
+    </div>
+</nav>
+
+<!-- ══ CONTENIDO ══ -->
+<div class="vista-container">
+
+    <h2 class="vista-title">Clientes</h2>
+
+    <!-- Formulario agregar cliente -->
+    <div class="panel">
+        <h3>Añadir Nuevo Cliente</h3>
+        <form th:action="@{/view/customers/add}" th:object="${customer}" action="#" method="post">
+            <div class="form-row">
+                <div class="form-group" style="min-width:160px; max-width:180px;">
+                    <label>DPI</label>
+                    <input type="number" th:field="*{customerDpi}" placeholder="Número DPI" required />
+                </div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" th:field="*{firstName}" placeholder="Nombre" required />
+                </div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <input type="text" th:field="*{lastName}" placeholder="Apellido" required />
+                </div>
+                <div class="form-group" style="flex:2;">
+                    <label>Dirección</label>
+                    <input type="text" th:field="*{address}" placeholder="Dirección completa" />
+                </div>
+                <div class="form-group" style="min-width:120px; max-width:140px;">
+                    <label>Estado (1/0)</label>
+                    <input type="number" th:field="*{status}" placeholder="1 = Activo" required />
+                </div>
+                <button type="submit" class="btn-primary">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabla de clientes -->
+    <div class="panel">
+        <h3>Directorio de Clientes</h3>
+        <div class="tabla-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>DPI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Dirección</th>
+                    <th>Estado</th>
+                    <th>Acciones</th> </tr>
+                </thead>
+                <tbody>
+                <tr th:each="c : ${customers}">
+                    <td th:text="${c.customerDpi}"></td>
+                    <td th:text="${c.firstName}"></td>
+                    <td th:text="${c.lastName}"></td>
+                    <td th:text="${c.address}"></td>
+                    <td>
+            <span th:classappend="${c.status == 1 ? 'badge-activo' : 'badge-inactivo'}"
+                  class="badge" th:text="${c.status == 1 ? 'Activo' : 'Inactivo'}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{/view/customers/edit/{id}(id=${c.customerDpi})}" class="btn-primary" style="background-color: #f6b211; padding: 5px 10px; font-size: 12px; text-decoration: none;">Editar</a>
+                        <a th:href="@{/view/customers/delete/{id}(id=${c.customerDpi})}" class="btn-danger" style="padding: 5px 10px; font-size: 12px; text-decoration: none;" onclick="return confirm('¿Eliminar este cliente?')">Eliminar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script th:src="@{/js/main.js}" src="main.js"></script>
+</body>
+</html>

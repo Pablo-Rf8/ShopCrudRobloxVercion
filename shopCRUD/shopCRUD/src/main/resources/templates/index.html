@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Shoplox - Home</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}" href="home.css">
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav class="navbar">
+    <div class="nav-links">
+        <a th:href="@{/}" href="#">SHOPLOX</a>
+        <a th:href="@{/view/customers}" href="#">Clientes</a>
+        <a th:href="@{/view/products}" href="#" class="active">Productos</a>
+    </div>
+    <div class="nav-login-mini">
+        <span>¡Hola, Admin!</span>
+        <form th:action="@{/logout}" action="#" method="post" style="margin:0;">
+            <button type="submit" class="btn-small btn-logout">Log Out</button>
+        </form>
+    </div>
+</nav>
+
+<!-- ══ BARRA DE FILTROS ══ -->
+<div class="filter-bar">
+    <h1>Products</h1>
+
+    <div class="filter-group">
+        <label>Filter By:</label>
+        <select>
+            <option>Default</option>
+            <option>Nombre A-Z</option>
+            <option>Precio: menor a mayor</option>
+            <option>Precio: mayor a menor</option>
+            <option>Más stock</option>
+        </select>
+    </div>
+
+    <div class="filter-group">
+        <label>Status:</label>
+        <select>
+            <option>All</option>
+            <option>Activo</option>
+            <option>Inactivo</option>
+        </select>
+    </div>
+
+    <div class="filter-group">
+        <label>Category:</label>
+        <select>
+            <option>All</option>
+            <option>Electrónica</option>
+            <option>Ropa</option>
+            <option>Hogar</option>
+            <option>Juguetes</option>
+        </select>
+    </div>
+
+    <div class="filter-search">
+        <input type="text" placeholder="Search...">
+        <button>🔍</button>
+    </div>
+</div>
+
+<!-- ══ CONTENIDO PRINCIPAL ══ -->
+<div class="page-main">
+
+    <!-- ─── Popular ─── -->
+    <div class="section">
+        <div class="section-header">
+            <h2>Popular</h2>
+            <a th:href="@{/view/products}" href="#" class="btn-see-all">See All</a>
+        </div>
+        <div class="items-grid">
+            <!-- Thymeleaf: productos reales -->
+            <a class="game-card" th:each="p, i : ${products}" th:if="${i.index < 6}"
+               th:href="@{/view/products/__${p.productId}__}" href="#">
+                <div class="game-card-placeholder">📦</div>
+                <div class="game-card-info">
+                    <div class="game-card-name" th:text="${p.productName}">Nombre</div>
+                    <div class="game-card-meta">Q<span th:text="${p.price}">0.00</span> &bull; Stock: <span th:text="${p.stock}">0</span></div>
+                </div>
+            </a>
+            <!-- Placeholders estáticos (se ocultan si hay datos reales) -->
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">📦</div><div class="game-card-info"><div class="game-card-name">Producto Ejemplo 1</div><div class="game-card-meta">Q150.00 &bull; Stock: 30</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">📦</div><div class="game-card-info"><div class="game-card-name">Producto Ejemplo 2</div><div class="game-card-meta">Q89.99 &bull; Stock: 12</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">📦</div><div class="game-card-info"><div class="game-card-name">Producto Ejemplo 3</div><div class="game-card-meta">Q299.00 &bull; Stock: 5</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">📦</div><div class="game-card-info"><div class="game-card-name">Producto Ejemplo 4</div><div class="game-card-meta">Q45.00 &bull; Stock: 100</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">📦</div><div class="game-card-info"><div class="game-card-name">Producto Ejemplo 5</div><div class="game-card-meta">Q199.00 &bull; Stock: 8</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">📦</div><div class="game-card-info"><div class="game-card-name">Producto Ejemplo 6</div><div class="game-card-meta">Q75.50 &bull; Stock: 22</div></div></a>
+        </div>
+    </div>
+
+    <!-- ─── Top Earning ─── -->
+    <div class="section">
+        <div class="section-header">
+            <h2>Top Earning</h2>
+            <a href="#" class="btn-see-all">See All</a>
+        </div>
+        <div class="items-grid">
+            <a class="game-card" th:each="p, i : ${products}" th:if="${i.index >= 6 and i.index < 12}" href="#">
+                <div class="game-card-placeholder">🏷️</div>
+                <div class="game-card-info">
+                    <div class="game-card-name" th:text="${p.productName}">Producto</div>
+                    <div class="game-card-meta">Q<span th:text="${p.price}">0</span> &bull; Stock: <span th:text="${p.stock}">0</span></div>
+                </div>
+            </a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏷️</div><div class="game-card-info"><div class="game-card-name">Oferta Especial A</div><div class="game-card-meta">Q520.00 &bull; Stock: 3</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏷️</div><div class="game-card-info"><div class="game-card-name">Pack Premium B</div><div class="game-card-meta">Q399.99 &bull; Stock: 7</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏷️</div><div class="game-card-info"><div class="game-card-name">Colección Deluxe C</div><div class="game-card-meta">Q349.00 &bull; Stock: 15</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏷️</div><div class="game-card-info"><div class="game-card-name">Bundle Especial D</div><div class="game-card-meta">Q280.00 &bull; Stock: 9</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏷️</div><div class="game-card-info"><div class="game-card-name">Edición Gold E</div><div class="game-card-meta">Q199.00 &bull; Stock: 4</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏷️</div><div class="game-card-info"><div class="game-card-name">Mega Pack F</div><div class="game-card-meta">Q175.00 &bull; Stock: 11</div></div></a>
+        </div>
+    </div>
+
+    <!-- ─── Top Paid ─── -->
+    <div class="section">
+        <div class="section-header">
+            <h2>Top Paid</h2>
+            <a href="#" class="btn-see-all">See All</a>
+        </div>
+        <div class="items-grid">
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">⭐</div><div class="game-card-info"><div class="game-card-name">Artículo Más Vendido 1</div><div class="game-card-meta">Q49.00 &bull; Stock: 200</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">⭐</div><div class="game-card-info"><div class="game-card-name">Artículo Más Vendido 2</div><div class="game-card-meta">Q35.00 &bull; Stock: 180</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">⭐</div><div class="game-card-info"><div class="game-card-name">Artículo Más Vendido 3</div><div class="game-card-meta">Q120.00 &bull; Stock: 60</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">⭐</div><div class="game-card-info"><div class="game-card-name">Artículo Más Vendido 4</div><div class="game-card-meta">Q88.00 &bull; Stock: 45</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">⭐</div><div class="game-card-info"><div class="game-card-name">Artículo Más Vendido 5</div><div class="game-card-meta">Q60.00 &bull; Stock: 90</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">⭐</div><div class="game-card-info"><div class="game-card-name">Artículo Más Vendido 6</div><div class="game-card-meta">Q25.00 &bull; Stock: 300</div></div></a>
+        </div>
+    </div>
+
+    <!-- ─── Top Rated ─── -->
+    <div class="section">
+        <div class="section-header">
+            <h2>Top Rated</h2>
+            <a href="#" class="btn-see-all">See All</a>
+        </div>
+        <div class="items-grid">
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏆</div><div class="game-card-info"><div class="game-card-name">Producto Top Rated 1</div><div class="game-card-meta">Q310.00 &bull; Stock: 14</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏆</div><div class="game-card-info"><div class="game-card-name">Producto Top Rated 2</div><div class="game-card-meta">Q275.00 &bull; Stock: 20</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏆</div><div class="game-card-info"><div class="game-card-name">Producto Top Rated 3</div><div class="game-card-meta">Q185.00 &bull; Stock: 33</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏆</div><div class="game-card-info"><div class="game-card-name">Producto Top Rated 4</div><div class="game-card-meta">Q145.00 &bull; Stock: 50</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏆</div><div class="game-card-info"><div class="game-card-name">Producto Top Rated 5</div><div class="game-card-meta">Q99.00 &bull; Stock: 75</div></div></a>
+            <a class="game-card static-card" href="#"><div class="game-card-placeholder">🏆</div><div class="game-card-info"><div class="game-card-name">Producto Top Rated 6</div><div class="game-card-meta">Q55.00 &bull; Stock: 110</div></div></a>
+        </div>
+    </div>
+
+</div>
+
+<script th:src="@{/js/main.js}" src="main.js"></script>
+<script>
+    // Si Thymeleaf inyectó cards reales, oculta los placeholders estáticos
+    const realCards = document.querySelectorAll('.game-card:not(.static-card)');
+    if (realCards.length > 0) {
+        document.querySelectorAll('.static-card').forEach(c => c.remove());
+    }
+</script>
+</body>
+</html>
