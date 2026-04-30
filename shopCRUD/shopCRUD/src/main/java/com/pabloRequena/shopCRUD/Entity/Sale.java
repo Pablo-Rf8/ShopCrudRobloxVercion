@@ -1,6 +1,7 @@
 package com.pabloRequena.shopCRUD.Entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,11 +15,13 @@ public class Sale {
     private Integer quantity;
     private Double total;
 
-    @Column(insertable = false, updatable = false)
-    private LocalDateTime saleDate;
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime saleDate; // Hibernate generará la fecha automáticamente
 
     public Sale() {}
 
+    // ... mantén todos tus getters y setters aquí ...
     public Long getSaleId() { return saleId; }
     public void setSaleId(Long saleId) { this.saleId = saleId; }
     public Long getCustomerDpi() { return customerDpi; }

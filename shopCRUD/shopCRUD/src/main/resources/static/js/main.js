@@ -8,7 +8,19 @@ document.addEventListener("DOMContentLoaded", function() {
             const confirmacion = confirm("¿Estás seguro de realizar esta acción?");
             if (!confirmacion) {
                 event.preventDefault();
-            }
+            const tableSearchInput = document.getElementById('table-search');
+              if (tableSearchInput) {
+              tableSearchInput.addEventListener('keyup', function() {
+            const filterText = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#crud-table tbody tr');
+
+            rows.forEach(row => {
+                const rowText = row.innerText.toLowerCase();
+                if (rowText.includes(filterText)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         });
-    });
-});
+    }

@@ -1,11 +1,8 @@
 package com.pabloRequena.shopCRUD.Entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-
 
 @Data
 @Entity
@@ -13,7 +10,8 @@ import java.time.LocalDate;
 public class Product {
     @Id
     @Column(name = "product_id")
-    private Integer productId;
+    private Long productId; // Cambiado a Long
+
     private String productName;
     private BigDecimal price;
     private Integer stock;

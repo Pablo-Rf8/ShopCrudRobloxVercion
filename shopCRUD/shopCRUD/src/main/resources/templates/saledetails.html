@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Shoplox - Detalles de Venta</title>
+    <link rel="stylesheet" th:href="@{/css/vistas.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-links">
+        <a th:href="@{/}">SHOPLOX</a>
+        <a th:href="@{/view/customers}">Clientes</a>
+        <a th:href="@{/view/products}">Productos</a>
+        <a th:href="@{/view/sales}">Ventas</a>
+        <a th:href="@{/view/saledetails}" class="active">Detalles</a>
+        <a th:href="@{/view/users}">Usuarios</a>
+    </div>
+    <div class="nav-login-mini">
+        <form th:action="@{/logout}" method="post" style="margin:0;">
+            <button type="submit" class="btn-small btn-logout">Log Out</button>
+        </form>
+    </div>
+</nav>
+
+<div class="filter-bar">
+    <h1>Detalles de Venta</h1>
+    <div class="filter-search">
+        <input type="text" id="table-search" placeholder="Buscar en la tabla...">
+        <button type="button">🔍</button>
+    </div>
+</div>
+
+<div class="vista-container">
+    <div class="panel">
+        <h3>Añadir Detalle de Venta</h3>
+        <form th:action="@{/view/saledetails/add}" th:object="${saleDetail}" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Venta (ID)</label>
+                    <select th:field="*{saleId}" required>
+                        <option value="">-- Venta --</option>
+                        <option th:each="s : ${sales}" th:value="${s.saleId}" th:text="'Venta #' + ${s.saleId}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Producto</label>
+                    <select th:field="*{productId}" required>
+                        <option value="">-- Producto --</option>
+                        <option th:each="p : ${products}" th:value="${p.productId}" th:text="${p.productName}"></option>
+                    </select>
+                </div>
+                <div class="form-group" style="max-width:130px;">
+                    <label>Cantidad</label>
+                    <input type="number" th:field="*{quantity}" min="1" placeholder="Ej: 2" required />
+                </div>
+                <div class="form-group" style="max-width:150px;">
+                    <label>Precio Unit. (Q)</label>
+                    <input type="number" step="0.01" th:field="*{unitPrice}" placeholder="0.00" required />
+                </div>
+                <button type="submit" class="btn-primary">Añadir</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="panel">
+        <h3>Registro de Detalles</h3>
+        <div class="tabla-wrapper">
+            <table id="crud-table">
+                <thead>
+                <tr>
+                    <th>ID Detalle</th>
+                    <th>ID Venta</th>
+                    <th>ID Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unit.</th>
+                    <th>Subtotal</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sd : ${saleDetails}">
+                    <td th:text="${sd.detailId}"></td>
+                    <td th:text="${sd.saleId}"></td>
+                    <td th:text="${sd.productId}"></td>
+                    <td th:text="${sd.quantity}"></td>
+                    <td th:text="'Q' + ${sd.unitPrice}"></td>
+                    <!-- Calculamos el subtotal multiplicando cantidad * precio unitario -->
+                    <td th:text="'Q' + (${sd.quantity} * ${sd.unitPrice})"></td>
+                    <td>
+                        <a th:href="@{/view/saledetails/edit/{id}(id=${sd.detailId})}"
+                           class="btn-primary"
+                           style="background-color:#f6b211; padding:5px 10px; font-size:12px; text-decoration:none;">Editar</a>
+                        <a th:href="@{/view/saledetails/delete/{id}(id=${sd.detailId})}"
+                           class="btn-danger"
+                           style="padding:5px 10px; font-size:12px; text-decoration:none;"
+                           onclick="return confirm('¿Eliminar este detalle?')">Eliminar</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

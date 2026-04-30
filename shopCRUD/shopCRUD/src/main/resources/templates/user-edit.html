@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Shoplox - Editar Cliente</title>
+    <title>Shoplox - Editar Usuario</title>
     <link rel="stylesheet" th:href="@{/css/vistas.css}">
 </head>
 <body>
 <nav class="navbar">
     <div class="nav-links">
         <a th:href="@{/}">SHOPLOX</a>
-        <a th:href="@{/view/customers}" class="active">Clientes</a>
+        <a th:href="@{/view/customers}">Clientes</a>
         <a th:href="@{/view/products}">Productos</a>
         <a th:href="@{/view/sales}">Ventas</a>
-        <a th:href="@{/view/users}">Usuarios</a>
+        <a th:href="@{/view/users}" class="active">Usuarios</a>
     </div>
     <div class="nav-login-mini">
         <form th:action="@{/logout}" method="post" style="margin:0;">
@@ -22,35 +22,31 @@
 </nav>
 
 <div class="vista-container">
-    <h2 class="vista-title">Editar Cliente</h2>
+    <h2 class="vista-title">Editar Usuario</h2>
     <div class="panel">
-        <h3>Modificar Datos del Cliente</h3>
-        <form th:action="@{/view/customers/edit/{id}(id=${customer.customerDpi})}" th:object="${customer}" method="post">
+        <h3>Modificar Datos del Usuario</h3>
+        <form th:action="@{/view/users/edit/{id}(id=${user.userId})}" th:object="${user}" method="post">
             <div class="form-row">
-                <div class="form-group">
-                    <label>DPI</label>
-                    <input type="number" th:field="*{customerDpi}" readonly style="background:#f5f5f5;"/>
+                <div class="form-group" style="max-width:120px;">
+                    <label>ID</label>
+                    <input type="number" th:field="*{userId}" readonly style="background:#f5f5f5;"/>
                 </div>
                 <div class="form-group">
-                    <label>Nombre</label>
-                    <input type="text" th:field="*{firstName}" required />
+                    <label>Username</label>
+                    <input type="text" th:field="*{username}" required />
                 </div>
                 <div class="form-group">
-                    <label>Apellido</label>
-                    <input type="text" th:field="*{lastName}" required />
+                    <label>Password</label>
+                    <input type="password" th:field="*{password}" placeholder="Nueva contraseña" />
                 </div>
-                <div class="form-group" style="flex:2;">
-                    <label>Dirección</label>
-                    <input type="text" th:field="*{address}" />
-                </div>
-                <div class="form-group" style="max-width:140px;">
+                <div class="form-group" style="max-width:130px;">
                     <label>Estado (1/0)</label>
                     <input type="number" th:field="*{status}" required />
                 </div>
             </div>
             <div style="margin-top:16px; display:flex; gap:10px;">
                 <button type="submit" class="btn-primary">Guardar Cambios</button>
-                <a th:href="@{/view/customers}" class="btn-danger" style="text-decoration:none; padding:9px 20px; display:inline-block;">Cancelar</a>
+                <a th:href="@{/view/users}" class="btn-danger" style="text-decoration:none; padding:9px 20px; display:inline-block;">Cancelar</a>
             </div>
         </form>
     </div>

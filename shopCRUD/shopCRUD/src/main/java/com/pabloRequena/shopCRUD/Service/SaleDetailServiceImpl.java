@@ -1,6 +1,7 @@
 package com.pabloRequena.shopCRUD.Service;
 
 import com.pabloRequena.shopCRUD.Entity.SaleDetail;
+import com.pabloRequena.shopCRUD.Exception.ResourceNotFoundException;
 import com.pabloRequena.shopCRUD.Repository.SaleDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,12 @@ public class SaleDetailServiceImpl implements SaleDetailService {
     @Override
     public SaleDetail guardar(SaleDetail saleDetail) {
         return repository.save(saleDetail);
+    }
+
+    // <-- NUEVO MÉTODO -->
+    @Override
+    public SaleDetail buscarPorId(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Detalle de venta no encontrado con ID: " + id));
     }
 
     @Override

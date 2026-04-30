@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOPLOX - Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}" href="register.css">
+</head>
+<body class="register-background">
+
+<!-- ══ NAVBAR — idéntico al login ══ -->
+<nav class="navbar">
+    <div class="nav-left">
+        <div class="nav-logo-icon"></div>
+        <a th:href="@{/}" href="#" class="active">Play</a>
+        <a href="#">About</a>
+        <a href="#">Platforms</a>
+    </div>
+
+    <div class="nav-right">
+        <div class="nav-right-row">
+            <input type="text"     placeholder="Username">
+            <input type="password" placeholder="Password">
+            <button class="btn-nav-login"
+                    onclick="window.location.href='/login'">Log In</button>
+        </div>
+        <a href="#" class="nav-forgot">Forgot Username/Password?</a>
+    </div>
+</nav>
+
+<!-- ══ CONTENIDO ══ -->
+<main class="page-content">
+
+    <!-- Logo izquierda — letras inclinadas -->
+    <div class="logo-section">
+        <h1 class="shoplox-title" aria-label="SHOPLOX">
+            <span class="logo-letter">S</span>
+            <span class="logo-letter">H</span>
+            <span class="logo-o"></span>
+            <span class="logo-letter">P</span>
+            <span class="logo-letter">L</span>
+            <span class="logo-o"></span>
+            <span class="logo-letter">X</span>
+        </h1>
+        <p class="logo-tagline">Powering Imagination™</p>
+    </div>
+
+    <!-- Panel Sign Up derecha -->
+    <div class="register-panel">
+        <p class="register-panel-title">Sign up and start having fun!</p>
+
+        <form th:action="@{/register}" th:object="${user}" action="#" method="post">
+
+            <input
+                    type="text"
+                    th:field="*{username}"
+                    placeholder="Username (don't use your real name)"
+                    autocomplete="off"
+                    required
+            />
+
+            <input
+                    type="password"
+                    th:field="*{password}"
+                    placeholder="Password (minimum length 8)"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+            />
+
+            <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+            />
+
+            <!-- Checkbox términos — igual al original -->
+            <div class="terms-row">
+                <input type="checkbox" id="terms-check" required />
+                <label for="terms-check">
+                    By clicking Sign Up, you are agreeing to the
+                    <a href="#">Terms of Use</a> and
+                    <a href="#">Privacy Policy</a>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-signup">Sign Up</button>
+
+        </form>
+
+        <p class="login-link">
+            Already have an account? <a th:href="@{/login}" href="#">Log In</a>
+        </p>
+    </div>
+
+</main>
+
+<script th:src="@{/js/main.js}" src="main.js"></script>
+</body>
+</html>

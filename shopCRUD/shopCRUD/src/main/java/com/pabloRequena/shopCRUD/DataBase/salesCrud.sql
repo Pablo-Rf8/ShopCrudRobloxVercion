@@ -1,11 +1,12 @@
-	CREATE DATABASE IF NOT EXISTS SalesDB_in5bv;
+DROP DATABASE IF EXISTS SalesDB_in5bv;
+CREATE DATABASE SalesDB_in5bv;
 USE SalesDB_in5bv;
 
 -- ==========================================
 -- 1. Create Tables
 -- ==========================================
 
--- Table: Customers (translated from Clientes)
+-- Table: Customers
 CREATE TABLE Customers (
     customer_dpi INT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -14,9 +15,9 @@ CREATE TABLE Customers (
     status INT
 );
 
--- Table: Users (translated from Usuarios)
+-- Table: Users (Con AUTO_INCREMENT desde el inicio)
 CREATE TABLE Users (
-    user_id INT PRIMARY KEY,
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(45) NOT NULL,
     password VARCHAR(45) NOT NULL,
     email VARCHAR(60),
@@ -24,7 +25,7 @@ CREATE TABLE Users (
     status INT
 );
 
--- Table: Products (translated from Productos)
+-- Table: Products
 CREATE TABLE Products (
     product_id INT PRIMARY KEY,
     product_name VARCHAR(60) NOT NULL,
@@ -33,9 +34,9 @@ CREATE TABLE Products (
     status INT
 );
 
--- Table: Sales (translated from Ventas)
+-- Table: Sales (Con AUTO_INCREMENT desde el inicio)
 CREATE TABLE Sales (
-    sale_id INT PRIMARY KEY,
+    sale_id INT AUTO_INCREMENT PRIMARY KEY,
     sale_date DATE NOT NULL,
     total DECIMAL(10,2),
     status INT,
@@ -45,9 +46,9 @@ CREATE TABLE Sales (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
--- Table: SaleDetails (translated from DetalleVenta)
+-- Table: SaleDetails (Con AUTO_INCREMENT desde el inicio)
 CREATE TABLE SaleDetails (
-    sale_detail_id INT PRIMARY KEY,
+    sale_detail_id INT AUTO_INCREMENT PRIMARY KEY,
     quantity INT NOT NULL,
     unit_price DECIMAL(10,2) NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
@@ -80,17 +81,12 @@ INSERT INTO Products (product_id, product_name, price, stock, status) VALUES
 (103, 'USB-C Cable', 15.00, 100, 1);
 
 -- Insert Sales
--- Note: Totals here reflect the sum of the subtotals in the SaleDetails table below
 INSERT INTO Sales (sale_id, sale_date, total, status, customer_dpi, user_id) VALUES 
 (1000, '2023-10-25', 126.00, 1, 10101, 2),
 (1001, '2023-10-26', 300.00, 1, 20202, 2);
 
 -- Insert SaleDetails
--- Sale 1000 Details (Total: 126.00)
 INSERT INTO SaleDetails (sale_detail_id, quantity, unit_price, subtotal, product_id, sale_id) VALUES 
-(1, 2, 25.50, 51.00, 100, 1000), -- 2 Wireless Mice
-(2, 1, 75.00, 75.00, 101, 1000); -- 1 Mechanical Keyboard
-
--- Sale 1001 Details (Total: 300.00)
-INSERT INTO SaleDetails (sale_detail_id, quantity, unit_price, subtotal, product_id, sale_id) VALUES 
-(3, 2, 150.00, 300.00, 102, 1001); -- 2 HD Monitors
+(1, 2, 25.50, 51.00, 100, 1000), 
+(2, 1, 75.00, 75.00, 101, 1000), 
+(3, 2, 150.00, 300.00, 102, 1001);
